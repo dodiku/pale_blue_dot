@@ -1,10 +1,13 @@
 var height, width, canvasHeight, canvasWidth;
 var timeInterval = 3000;
 
+var myCanvas = createCanvas(winWidth, winHeight);
+
 function setup() {
   canvasWidth = 400;
   canvasHeight = 400;
-  createCanvas(canvasWidth, canvasHeight);
+  var myCanvas = createCanvas(canvasWidth, canvasHeight);
+  myCanvas.parent('canvas');
   height = 40;
   width = 40;
 }
