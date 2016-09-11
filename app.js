@@ -19,6 +19,11 @@ var port = process.env.PORT || 3000;
 var h = 20;
 var w = 20;
 var increment = 20;
+var limit = 300;
+var timeInterval = 3000;
+// var restartInterval = 300000;
+var restartInterval = 60000;
+var final = 0;
 
 // *************************
 // ROUTERS
@@ -45,7 +50,7 @@ io.on('connection', function(socket){
   console.log('a user connected');
   console.log('number of connected users: ' + userCount);
   io.sockets.emit('userCount', userCount);
-  socket.emit('dimensions', {h: h, w: w});
+  socket.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
 
   socket.on('disconnect', function(){
     userCount = userCount - 1;
@@ -55,15 +60,35 @@ io.on('connection', function(socket){
   });
 
   socket.on('click', function(){
-    h = h + increment;
-    w = w + increment;
-    io.sockets.emit('dimensions', {h: h, w: w});
+    if (w < limit) {
+      h = h + increment;
+      w = w + increment;
+      io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
+      setTimeout(reduceSize, timeInterval);
+    }
+    else {
+      final = 1;
+      io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
+      setTimeout(restart, restartInterval);
+    }
+
   });
 
   socket.on('reduce', function(){
     h = h - increment;
     w = w - increment;
-    io.sockets.emit('dimensions', {h: h, w: w});
+    io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
   });
+
+  function reduceSize () {
+    h = h - increment;
+    w = w - increment;
+    io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
+  }
+
+  function restart (){
+    final = 0;
+    io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
+  }
 
 });

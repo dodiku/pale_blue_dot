@@ -1,11 +1,9 @@
 var canvasHeight, canvasWidth, cnv;
 
-var timeInterval = 3000;
+// var timeInterval = 3000;
 var h = 5;
 var w = 5;
-
-
-// var socket = io();
+var limit, restartInterval, final;
 
 function centerCanvas() {
   var x = (windowWidth - width) / 2;
@@ -16,7 +14,6 @@ function centerCanvas() {
 function setup() {
   canvasWidth = 400;
   canvasHeight = 400;
-  // cnv = createCanvas(canvasWidth, canvasHeight);
   cnv = createCanvas(windowWidth, windowHeight);
   centerCanvas();
   smooth();
@@ -35,19 +32,24 @@ socket.on('userCount', function(userCount){
 socket.on('dimensions', function(data){
   w = data.w;
   h = data.h;
+  limit = data.limit;
+  restartInterval = data.restartInterval;
+  final = data.final;
   console.log('new data came to light...');
   console.log('h = ' + h);
   console.log('w = ' + w);
+  console.log('limit: ' + limit);
+  console.log('restartInterval: ' + restartInterval);
+  console.log('final state: ' + final);
 });
 
 function mousePressed(){
-  socket.emit('msg', 'hello from the client...');
-  console.log("click");
-  timeInterval = 3000;
-  // w = w + 20;
-  // h = h + 20;
-  socket.emit('click', 'click');
-  setTimeout(reduceSize, timeInterval);
+  if (final === 0) {
+    console.log("click");
+    socket.emit('click', 'click');
+    // setTimeout(reduceSize, timeInterval);
+    // final = 0;
+  }
 }
 
 function draw() {
@@ -55,14 +57,28 @@ function draw() {
   smooth();
   fill(142, 227, 239);
 	noStroke();
-	// ellipse(200, 200, w, h);
-  ellipse((windowWidth/2), (windowHeight/2), w, h);
+  if (final === 0) {
+    ellipse((windowWidth/2), (windowHeight/2), w, h);
+  }
+  if (final === 1) {
+    ellipse((windowWidth/2), (windowHeight/2), limit, limit);
+    // ... add text...
+    textSize(32);
+    fill(30, 32, 33);
+    textAlign('center');
+    text("hello itp", (windowWidth/2), (windowHeight/2));
+    //
+    // setTimeout(restart, restartInterval);
+  }
+
 }
 
 
 function reduceSize () {
   console.log("reducing size...");
-    // w = w - 20;
-    // h = h - 20;
-    socket.emit('reduce', 'reduce');
+  socket.emit('reduce', 'reduce');
+}
+
+function restart (){
+  final = 0;
 }
