@@ -15,6 +15,11 @@ app.use(express.static( __dirname + '/public' ));
 
 var port = process.env.PORT || 3000;
 
+// circle dimensions
+var h = 20;
+var w = 20;
+var increment = 20;
+
 // *************************
 // ROUTERS
 // *************************
@@ -40,6 +45,7 @@ io.on('connection', function(socket){
   console.log('a user connected');
   console.log('number of connected users: ' + userCount);
   io.sockets.emit('userCount', userCount);
+  socket.emit('dimensions', {h: h, w: w});
 
   socket.on('disconnect', function(){
     userCount = userCount - 1;
@@ -47,4 +53,17 @@ io.on('connection', function(socket){
     console.log('number of connected users: ' + userCount);
     io.sockets.emit('userCount', userCount);
   });
+
+  socket.on('click', function(){
+    h = h + increment;
+    w = w + increment;
+    io.sockets.emit('dimensions', {h: h, w: w});
+  });
+
+  socket.on('reduce', function(){
+    h = h - increment;
+    w = w - increment;
+    io.sockets.emit('dimensions', {h: h, w: w});
+  });
+
 });

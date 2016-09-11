@@ -1,8 +1,9 @@
 var canvasHeight, canvasWidth, cnv;
 
 var timeInterval = 3000;
-var h = 40;
-var w = 40;
+var h = 5;
+var w = 5;
+
 
 // var socket = io();
 
@@ -25,6 +26,30 @@ function windowResized() {
   centerCanvas();
 }
 
+var socket = io();
+socket.emit('user', 'new user is connected');
+socket.on('userCount', function(userCount){
+  console.log('total number of users online is: ' + userCount);
+});
+
+socket.on('dimensions', function(data){
+  w = data.w;
+  h = data.h;
+  console.log('new data came to light...');
+  console.log('h = ' + h);
+  console.log('w = ' + w);
+});
+
+function mousePressed(){
+  socket.emit('msg', 'hello from the client...');
+  console.log("click");
+  timeInterval = 3000;
+  // w = w + 20;
+  // h = h + 20;
+  socket.emit('click', 'click');
+  setTimeout(reduceSize, timeInterval);
+}
+
 function draw() {
   background(30, 32, 33);
   smooth();
@@ -34,18 +59,10 @@ function draw() {
   ellipse((windowWidth/2), (windowHeight/2), w, h);
 }
 
-// function mousePressed(){
-//   socket.emit('msg', 'hello from the client...');
-//   console.log("click");
-//   timeInterval = 3000;
-//   w = w + 20;
-//   h = h + 20;
-//   setTimeout(reduceSize, timeInterval);
-// }
-
 
 function reduceSize () {
   console.log("reducing size...");
-    w = w - 20;
-    h = h - 20;
+    // w = w - 20;
+    // h = h - 20;
+    socket.emit('reduce', 'reduce');
 }
