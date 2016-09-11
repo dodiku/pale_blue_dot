@@ -44,7 +44,7 @@ socket.on('dimensions', function(data){
 });
 
 function mousePressed(){
-  if (final === 0) {
+  if (final !== 2) {
     console.log("click");
     socket.emit('click', 'click');
     // setTimeout(reduceSize, timeInterval);
@@ -61,14 +61,20 @@ function draw() {
     ellipse((windowWidth/2), (windowHeight/2), w, h);
   }
   if (final === 1) {
-    ellipse((windowWidth/2), (windowHeight/2), limit, limit);
-    // ... add text...
+    ellipse((windowWidth/2), (windowHeight/2 - 10), w, h);
     textSize(32);
+    textFont('monaco', 'Consolas', "Courier New", "Lucida Console", "Lucida Typewriter", 'monospace');
     fill(30, 32, 33);
     textAlign('center');
     text("hello itp", (windowWidth/2), (windowHeight/2));
-    //
-    // setTimeout(restart, restartInterval);
+  }
+  if (final === 2) {
+    ellipse((windowWidth/2), (windowHeight/2 - 10), limit, limit);
+    textSize(32);
+    textFont('monaco', 'Consolas', "Courier New", "Lucida Console", "Lucida Typewriter", 'monospace');
+    fill(30, 32, 33);
+    textAlign('center');
+    text("hello world", (windowWidth/2), (windowHeight/2));
   }
 
 }

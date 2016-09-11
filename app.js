@@ -22,7 +22,7 @@ var increment = 20;
 var limit = 300;
 var timeInterval = 3000;
 // var restartInterval = 300000;
-var restartInterval = 60000;
+var restartInterval = 6000;
 var final = 0;
 
 // *************************
@@ -60,14 +60,26 @@ io.on('connection', function(socket){
   });
 
   socket.on('click', function(){
-    if (w < limit) {
+    console.log('got a click');
+    console.log('w: ' + w);
+    if (w < limit*0.6) {
+      console.log("we're on the safe zone");
       h = h + increment;
       w = w + increment;
       io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
       setTimeout(reduceSize, timeInterval);
     }
-    else {
+    if (w >= limit*0.6 && w < limit) {
+      console.log('in the itp zone');
+      h = h + increment;
+      w = w + increment;
       final = 1;
+      io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
+      setTimeout(reduceSize, timeInterval);
+    }
+    if (w >= limit){
+      console.log('in the hello zone');
+      final = 2;
       io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
       setTimeout(restart, restartInterval);
     }
