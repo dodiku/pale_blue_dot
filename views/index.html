@@ -22,6 +22,19 @@
 
       <script>
         var socket = io();
+        socket.emit('user', 'new user is connected');
+        socket.on('userCount', function(userCount){
+          console.log('total number of users online is: ' + userCount);
+        })
+
+        function mousePressed(){
+          socket.emit('msg', 'hello from the client...');
+          console.log("click");
+          timeInterval = 3000;
+          w = w + 20;
+          h = h + 20;
+          setTimeout(reduceSize, timeInterval);
+        }
       </script>
 
     <footer>

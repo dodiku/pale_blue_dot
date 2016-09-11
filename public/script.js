@@ -4,6 +4,8 @@ var timeInterval = 3000;
 var h = 40;
 var w = 40;
 
+// var socket = io();
+
 function centerCanvas() {
   var x = (windowWidth - width) / 2;
   var y = (windowHeight - height) / 2;
@@ -32,29 +34,18 @@ function draw() {
   ellipse((windowWidth/2), (windowHeight/2), w, h);
 }
 
-function mousePressed(){
-  console.log("click");
-  timeInterval = 3000;
-  w = w + 20;
-  h = h + 20;
-  setTimeout(reduceSize, timeInterval);
+// function mousePressed(){
+//   socket.emit('msg', 'hello from the client...');
+//   console.log("click");
+//   timeInterval = 3000;
+//   w = w + 20;
+//   h = h + 20;
+//   setTimeout(reduceSize, timeInterval);
+// }
 
-  // if (w >= canvasWidth){
-  //   //reseting the circle
-  //   w = 40;
-  //   h = 40;
-  // }
-  // else{
-  //   console.log("elsei");
-  //   w = w + 20;
-  //   h = h + 20;
-  //   setTimeout(reduceSize, timeInterval);
-  // }
-}
 
 function reduceSize () {
   console.log("reducing size...");
     w = w - 20;
     h = h - 20;
-
 }
