@@ -107,6 +107,9 @@ io.on('connection', function(socket){
   function reduceSize () {
     h = h - increment;
     w = w - increment;
+    if (w < limit*0.6) {
+      final = 0;
+    }
     io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
   }
 
