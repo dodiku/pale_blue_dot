@@ -5,7 +5,7 @@ var http = require('http').Server(app);
 // var io = require('socket.io')(http);
 
 // *************************
-// CONFIGURATIONS
+// SETUP
 // *************************
 
 app.set("views", __dirname + '/views');
@@ -15,15 +15,27 @@ app.use(express.static( __dirname + '/public' ));
 
 var port = process.env.PORT || 3000;
 
-// circle dimensions
+// *************************
+// CONFIGURATIONS
+// *************************
+
+// debug variables
 var h = 20;
 var w = 20;
 var increment = 20;
-var limit = 300;
+var limit = 500;
 var timeInterval = 3000;
-// var restartInterval = 300000;
 var restartInterval = 6000;
 var final = 0;
+
+// live variables
+// var h = 20;
+// var w = 20;
+// var increment = 2;
+// var limit = 800;
+// var timeInterval = 3000;
+// var restartInterval = 300000;
+// var final = 0;
 
 // *************************
 // ROUTERS

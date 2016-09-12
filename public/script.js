@@ -1,6 +1,5 @@
 var canvasHeight, canvasWidth, cnv;
 
-// var timeInterval = 3000;
 var h = 5;
 var w = 5;
 var limit, restartInterval, final;
@@ -47,15 +46,23 @@ function mousePressed(){
   if (final !== 2) {
     console.log("click");
     socket.emit('click', 'click');
-    // setTimeout(reduceSize, timeInterval);
-    // final = 0;
   }
 }
 
 function draw() {
   background(30, 32, 33);
   smooth();
-  fill(142, 227, 239);
+  if (final == 2) {
+    var blue = Math.round((Math.random() * 100)) + 230 ;
+    var green = Math.round((Math.random() * 100)) + 220 ;
+    var red = Math.round((Math.random() * 100)) + 140 ;
+    // console.log(blue);
+    fill(red, green, blue);
+  }
+  else {
+    fill(142, 227, 239);
+  }
+
 	noStroke();
   if (final === 0) {
     ellipse((windowWidth/2), (windowHeight/2), w, h);
@@ -63,7 +70,8 @@ function draw() {
   if (final === 1) {
     ellipse((windowWidth/2), (windowHeight/2 - 10), w, h);
     textSize(32);
-    textFont('monaco', 'Consolas', "Courier New", "Lucida Console", "Lucida Typewriter", 'monospace');
+    textFont("Courier New");
+    textStyle(NORMAL);
     fill(30, 32, 33);
     textAlign('center');
     text("hello itp", (windowWidth/2), (windowHeight/2));
@@ -71,7 +79,8 @@ function draw() {
   if (final === 2) {
     ellipse((windowWidth/2), (windowHeight/2 - 10), limit, limit);
     textSize(32);
-    textFont('monaco', 'Consolas', "Courier New", "Lucida Console", "Lucida Typewriter", 'monospace');
+    textStyle(BOLD);
+    textFont("Courier New");
     fill(30, 32, 33);
     textAlign('center');
     text("hello world", (windowWidth/2), (windowHeight/2));
