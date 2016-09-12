@@ -23,7 +23,7 @@ var port = process.env.PORT || 3000;
 var h = 20;
 var w = 20;
 var increment = 20;
-var limit = 300;
+var limit = 400;
 var timeInterval = 3000;
 var restartInterval = 6000;
 var final = 0;
@@ -107,7 +107,7 @@ io.on('connection', function(socket){
   function reduceSize () {
     h = h - increment;
     w = w - increment;
-    if (w < limit*0.6) {
+    if (w < limit*0.6 && final === 1) {
       final = 0;
     }
     io.sockets.emit('dimensions', {h: h, w: w, limit: limit, restartInterval: restartInterval, final: final});
