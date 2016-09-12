@@ -40,12 +40,32 @@ socket.on('dimensions', function(data){
   console.log('limit: ' + limit);
   console.log('restartInterval: ' + restartInterval);
   console.log('final state: ' + final);
+
+  if (data.r) {
+    r = data.r;
+    g = data.g;
+    b = data.b;
+    x = data.x;
+    y = data.y;
+  }
 });
 
 function mousePressed(){
   if (final !== 2) {
     console.log("click");
+    // generating random color
+    // var r = Math.round(Math.random() * (256 - 0));
+    // var g = Math.round(Math.random() * (256 - 0));
+    // var b = Math.round(Math.random() * (256 - 0));
+
+    // getting mouse position
+    // var x = mouseX;
+    // var y = mouseY;
+    // shooting data to the server
+    // socket.emit('click', {r: r, g: g, b: b, x: x, y: y});
+    // fill('rgba(0,255,0, 0.25)');
     socket.emit('click', 'click');
+
   }
 }
 
