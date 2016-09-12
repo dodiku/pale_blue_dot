@@ -22,7 +22,7 @@ var port = process.env.PORT || 3000;
 // debug variables
 var h = 20;
 var w = 20;
-var increment = 4;
+var increment = 8;
 var limit = 700;
 var timeInterval = 3000;
 var restartInterval = 300000;
