@@ -20,22 +20,22 @@ var port = process.env.PORT || 3000;
 // *************************
 
 // debug variables
-var h = 20;
-var w = 20;
-var increment = 8;
-var limit = 700;
-var timeInterval = 3000;
-var restartInterval = 300000;
-var final = 0;
-
-// live variables
 // var h = 20;
 // var w = 20;
-// var increment = 2;
-// var limit = 800;
+// var increment = 8;
+// var limit = 400;
 // var timeInterval = 3000;
 // var restartInterval = 300000;
 // var final = 0;
+
+// live variables
+var h = 10;
+var w = 10;
+var increment = 1;
+var limit = 1200;
+var timeInterval = 3000;
+var restartInterval = 300000;
+var final = 0;
 
 // *************************
 // ROUTERS
