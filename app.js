@@ -19,7 +19,7 @@ var port = process.env.PORT || 3000;
 // CONFIGURATIONS
 // *************************
 
-debug variables
+// debug variables
 var h = 20;
 var w = 20;
 var increment = 8;
