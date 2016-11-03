@@ -19,7 +19,7 @@ var port = process.env.PORT || 3000;
 // CONFIGURATIONS
 // *************************
 
-// debug variables
+//// debug variables
 // var h = 20;
 // var w = 20;
 // var increment = 8;
@@ -28,7 +28,7 @@ var port = process.env.PORT || 3000;
 // var restartInterval = 300000;
 // var final = 0;
 
-// live variables
+//// live variables
 var h = 10;
 var w = 10;
 var increment = 1;
